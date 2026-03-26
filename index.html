@@ -178,13 +178,117 @@
             overflow: hidden;
         }
 
-        .hero-section::before {
-            content: '';
+        /* =============================================
+           HERO SLIDER
+        ============================================= */
+        .hero-slides-wrapper {
             position: absolute;
             inset: 0;
-            background: url('https://andrew78kim-dot.github.io/seorin/Images/land2.jpg') center/cover no-repeat;
-            animation: kenBurns 14s ease-out forwards;
             z-index: 0;
+            overflow: hidden;
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hero-slide.active { opacity: 1; }
+        .hero-slide-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.0);
+            transition: transform 8s ease-out;
+        }
+        .hero-slide.active .hero-slide-bg { transform: scale(1.12); }
+        .hero-slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, rgba(15,30,8,0.30) 0%, rgba(10,25,5,0.62) 100%);
+        }
+        .hero-slide-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 1.5rem;
+            z-index: 2;
+        }
+        .slide-inner {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.9s ease 0.5s, transform 0.9s ease 0.5s;
+            max-width: 900px;
+            width: 100%;
+        }
+        .hero-slide.active .slide-inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* 슬라이더 화살표 */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 52px; height: 52px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255,255,255,0.25);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .slider-arrow:hover {
+            background: rgba(197,160,89,0.35);
+            border-color: var(--accent-gold);
+            transform: translateY(-50%) scale(1.08);
+        }
+        .slider-prev { left: 24px; }
+        .slider-next { right: 24px; }
+        /* 슬라이더 도트 */
+        .slider-nav-dots {
+            position: absolute;
+            bottom: 88px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .slider-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.35);
+            border: 1.5px solid rgba(255,255,255,0.65);
+            cursor: pointer;
+            transition: all 0.35s ease;
+            padding: 0;
+        }
+        .slider-dot.active {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            width: 30px;
+            border-radius: 5px;
+        }
+        /* 프로그레스 바 */
+        .slider-progress {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 3px;
+            background: var(--accent-gold);
+            z-index: 10;
+            width: 0%;
         }
 
         .hero-overlay {
@@ -888,30 +992,107 @@
     </div>
 </nav>
 
-<!-- ─── HERO ──────────────────────────────────────── -->
+<!-- ─── HERO SLIDER ─────────────────────────────── -->
 <section id="home" class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="container mx-auto px-6 hero-content">
-        <span class="hero-divider" style="width:70px;"></span>
-        <h2 class="hero-subtitle text-base md:text-xl mb-5 text-white/80">
-            Seorin Co., Ltd.
-        </h2>
-        <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight">
-            자연의 품격을 담은<br>고품격 공간의 창조
-        </h1>
-        <p class="hero-description text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed">
-            (주)서린은 자연과 건축의 완벽한 조화를 추구합니다.<br class="hidden md:block">
-            감각적인 설계로 당신의 공간에 생명력을 불어넣습니다.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#contact"   class="hero-btn-primary btn-hero-primary">상담 신청하기 <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
-            <a href="#portfolio" class="hero-btn-secondary btn-hero-secondary">시공사례 둘러보기</a>
+
+    <!-- ── 슬라이드 래퍼 ── -->
+    <div class="hero-slides-wrapper">
+
+        <!-- Slide 1 : 자연의 품격 -->
+        <div class="hero-slide active" id="slide-1">
+            <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/land2.jpg');"></div>
+            <div class="hero-slide-overlay"></div>
+            <div class="hero-slide-content">
+                <div class="slide-inner">
+                    <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;"></span>
+                    <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">Seorin Co., Ltd.</h2>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
+                        자연의 품격을 담은<br>고품격 공간의 창조
+                    </h1>
+                    <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
+                        (주)서린은 자연과 건축의 완벽한 조화를 추구합니다.<br class="hidden md:block">
+                        감각적인 설계로 당신의 공간에 생명력을 불어넣습니다.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#contact"   class="btn-hero-primary">상담 신청하기 <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
+                        <a href="#portfolio" class="btn-hero-secondary">시공사례 둘러보기</a>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Slide 2 : 20년 경험 -->
+        <div class="hero-slide" id="slide-2">
+            <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/exam1.jpg');"></div>
+            <div class="hero-slide-overlay"></div>
+            <div class="hero-slide-content">
+                <div class="slide-inner">
+                    <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;"></span>
+                    <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">Our Expertise</h2>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
+                        20년 경험이 만든<br>명품 조경의 세계
+                    </h1>
+                    <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
+                        전국에서 선별한 명품 수목과 최신 조경 기술로<br class="hidden md:block">
+                        당신만의 특별한 공간을 완성합니다.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#services"  class="btn-hero-primary">사업분야 알아보기 <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
+                        <a href="#portfolio" class="btn-hero-secondary">포트폴리오 보기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 : 200+ 프로젝트 -->
+        <div class="hero-slide" id="slide-3">
+            <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/exam2.jpg');"></div>
+            <div class="hero-slide-overlay"></div>
+            <div class="hero-slide-content">
+                <div class="slide-inner">
+                    <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;"></span>
+                    <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">Our Projects</h2>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
+                        200+ 프로젝트가<br>증명하는 서린의 실력
+                    </h1>
+                    <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
+                        공원, 아파트, 대학교, 고속도로 휴게소까지<br class="hidden md:block">
+                        다양한 공간에서 서린의 전문성을 경험하세요.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#history" class="btn-hero-primary">실적 보기 <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
+                        <a href="#contact" class="btn-hero-secondary">문의하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /hero-slides-wrapper -->
+
+    <!-- 이전 / 다음 화살표 -->
+    <button class="slider-arrow slider-prev" onclick="heroSlider.prev()" aria-label="이전 슬라이드">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="slider-arrow slider-next" onclick="heroSlider.next()" aria-label="다음 슬라이드">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <!-- 페이지 도트 -->
+    <div class="slider-nav-dots">
+        <button class="slider-dot active" onclick="heroSlider.goTo(0)" aria-label="슬라이드 1"></button>
+        <button class="slider-dot"        onclick="heroSlider.goTo(1)" aria-label="슬라이드 2"></button>
+        <button class="slider-dot"        onclick="heroSlider.goTo(2)" aria-label="슬라이드 3"></button>
     </div>
+
+    <!-- 스크롤 인디케이터 -->
     <div class="scroll-indicator text-white/60 flex flex-col items-center gap-2">
         <span class="text-xs tracking-widest uppercase">Scroll</span>
         <i class="fas fa-chevron-down text-sm"></i>
     </div>
+
+    <!-- 프로그레스 바 -->
+    <div class="slider-progress" id="sliderProgress"></div>
+
 </section>
 
 <!-- ─── ABOUT ─────────────────────────────────────── -->
@@ -1252,7 +1433,7 @@
                         <div>
                             <p class="text-xs text-white/45 mb-1 uppercase tracking-widest">이메일 문의</p>
                             <!-- <p class="text-lg font-bold"><a href="/cdn-cgi/l/email-pprotection" class="__cf_email__" data-cfemail="0968676d7b6c7e3e3127626064496e64686065276a6664">[email&#160;protected]</a></p> -->
-                            <p class="ttext-lg font-bold">andrew78.kim@gmail.com</p>
+                            <p class="ttext-lg font-bold"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="46272822342331717e682d2f2b06212b272f2a6825292b">[email&#160;protected]</a></p>
                         </div>
                     </div>
                     <div class="contact-info-item sr-item sr-delay-3">
@@ -1311,6 +1492,63 @@
 
 <!-- ─── SCRIPTS ───────────────────────────────────── -->
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* =============================================
+   0. HERO SLIDER
+============================================= */
+const heroSlider = (function() {
+    const INTERVAL = 6000;
+    let current   = 0;
+    let autoTimer = null;
+
+    const slides  = document.querySelectorAll('.hero-slide');
+    const dots    = document.querySelectorAll('.slider-dot');
+    const section = document.getElementById('home');
+
+    function goTo(idx) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (idx + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        resetProgress();
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function resetProgress() {
+        const bar = document.getElementById('sliderProgress');
+        if (!bar) return;
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            bar.style.transition = `width ${INTERVAL}ms linear`;
+            bar.style.width = '100%';
+        }));
+    }
+
+    function startAuto() { autoTimer = setInterval(next, INTERVAL); }
+    function stopAuto()  { clearInterval(autoTimer); }
+
+    /* 터치 스와이프 지원 */
+    let tsX = 0;
+    section.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+    section.addEventListener('touchend',   e => {
+        const diff = tsX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+    });
+
+    /* 마우스 오버 시 일시 정지 */
+    section.addEventListener('mouseenter', stopAuto);
+    section.addEventListener('mouseleave', startAuto);
+
+    resetProgress();
+    startAuto();
+
+    return { goTo, next, prev };
+})();
+
+
 /* =============================================
    1. SCROLL REVEAL — Intersection Observer
    섹션/요소가 뷰포트에 들어오면 슬라이드업 실행
