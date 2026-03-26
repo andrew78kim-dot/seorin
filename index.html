@@ -109,19 +109,41 @@
         .nav-logo {
             font-family: 'Noto Serif KR', serif;
             color: var(--primary-green);
-            letter-spacing: -0.02em;
-            text-shadow:
-                1px 1px 0 #1e3614,
-                2px 2px 0 #1e3614,
-                3px 3px 6px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+            position: relative;
+            display: inline-block;
+            /* 더 선명하고 고급스러운 그라데이션 */
+            background: linear-gradient(135deg, #1a3a1e 0%, #c5a059 50%, #1a3a1e 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* 선명도를 높이기 위한 드롭 섀도우 */
+            filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.2));
+            
+            /* 시선을 끄는 애니메이션 효과 */
+            animation: logo-shimmer 3s linear infinite, logo-pulse 2s ease-in-out infinite;
+            transition: all 0.5s ease;
         }
+
+        @keyframes logo-pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.2)); }
+            50% { transform: scale(1.03); filter: drop-shadow(0px 4px 8px rgba(197,160,89,0.4)); }
+        }
+
+        @keyframes logo-shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes logo-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
         .nav-logo:hover {
-            text-shadow:
-                1px 1px 0 var(--accent-gold),
-                2px 2px 0 var(--accent-gold),
-                3px 3px 10px rgba(197,160,89,0.4);
-            transform: translateY(-1px);
+            transform: scale(1.08) translateY(-6px);
+            filter: drop-shadow(0px 8px 15px rgba(45, 79, 30, 0.3));
+            letter-spacing: 0.02em;
         }
 
         .nav-link {
@@ -972,7 +994,7 @@
 <!-- ─── NAVIGATION ────────────────────────────────── -->
 <nav class="fixed w-full z-50 nav-glass py-4" id="mainNav">
     <div class="container mx-auto px-6 flex justify-between items-center">
-        <span class="nav-logo text-3xl font-bold">(주)서린</span>
+        <span class="nav-logo text-3xl font-black">(주) 서린</span>
 
         <!-- 데스크톱 메뉴 -->
         <div class="hidden md:flex items-center space-x-8">
