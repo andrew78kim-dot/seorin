@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <title>(주)서린 - 회사소개</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="(주)서린의 철학, 연혁, 사업 파트너, 오시는 길을 한눈에 확인할 수 있는 회사소개 페이지입니다." name="description"/>
+  <meta content="서린 회사소개, 서린 연혁, 조경회사, 원주 조경업체, 서린 철학" name="keywords"/>
+  <meta content="index,follow" name="robots"/>
+  <meta content="(주)서린" name="author"/>
+  <meta content="#2d4f1e" name="theme-color"/>
+  <meta content="ko_KR" property="og:locale"/>
+  <meta content="website" property="og:type"/>
+  <meta content="(주)서린" property="og:site_name"/>
+  <meta content="(주)서린 - 회사소개" property="og:title"/>
+  <meta content="(주)서린의 철학, 연혁, 사업 파트너, 오시는 길을 한눈에 확인할 수 있는 회사소개 페이지입니다." property="og:description"/>
+  <meta content="https://andrew78kim-dot.github.io/seorin/Images/land3.jpg" property="og:image"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="(주)서린 - 회사소개" name="twitter:title"/>
+  <meta content="(주)서린의 철학, 연혁, 사업 파트너, 오시는 길을 한눈에 확인할 수 있는 회사소개 페이지입니다." name="twitter:description"/>
+  <meta content="https://andrew78kim-dot.github.io/seorin/Images/land3.jpg" name="twitter:image"/>
+  <link href="assets/css/common.css" rel="stylesheet"/>
+  <script type="application/ld+json">
+   {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "(주)서린",
+  "alternateName": "SEORIN CO., LTD.",
+  "logo": "https://andrew78kim-dot.github.io/seorin/Images/Logo.png",
+  "telephone": "033-765-5242",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "강원특별자치도 원주시 흥업면 남원로 67-9",
+    "addressLocality": "원주시",
+    "addressRegion": "강원특별자치도",
+    "addressCountry": "KR"
+  },
+  "description": "조경식재, 조경시설물, 조경유지관리를 수행하는 조경 전문 기업"
+}
+  </script>
+ </head>
+ <body data-page="about">
+  <div data-include="site-header"></div>
+  <section class="page-hero">
+   <div class="container mx-auto px-6 relative z-10">
+    <div class="max-w-4xl sr-section">
+     <span class="hero-badge">
+      <i class="fas fa-leaf"></i>
+      About Us
+     </span>
+     <h1 class="serif text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mt-5 mb-6">
+      (주)서린의 철학과 발자취를 소개합니다
+     </h1>
+     <p class="hero-desc mb-10">
+      자연을 닮은 정성으로 상서로운 풍경을 짓는 사람들
+     </p>
+     <div class="flex flex-col sm:flex-row gap-4 sm:gap-10 items-start sm:items-center">
+      <a class="btn-primary" href="business.html">
+       사업분야 보기
+       <i class="fas fa-arrow-down"></i>
+      </a>
+      <div class="grid grid-cols-2 sm:flex gap-4 sm:gap-8">
+       <div class="hero-stat">
+        <strong>20+</strong>
+        <span>전문 경력</span>
+       </div>
+       <div class="hero-stat">
+        <strong>200+</strong>
+        <span>프로젝트</span>
+       </div>
+       <div class="hero-stat">
+        <strong>99%</strong>
+        <span>고객 만족도</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="py-10 bg-white border-b border-gray-100 sticky top-[73px] z-40 shadow-sm">
+   <div class="container mx-auto px-6 max-w-4xl">
+    <div class="grid grid-cols-4 gap-2 md:gap-4 text-center">
+     <button class="tab-btn active py-3 md:py-4 px-2 rounded-xl font-medium text-sm md:text-base border border-gray-200 text-[#4a5e3a] hover:bg-gray-50" id="btn-greetings" onclick="switchTab('greetings')">
+      <i class="fas fa-feather-alt mr-2 hidden sm:inline-block"></i>
+      인사말
+     </button>
+     <button class="tab-btn py-3 md:py-4 px-2 rounded-xl font-medium text-sm md:text-base border border-gray-200 text-[#4a5e3a] hover:bg-gray-50" id="btn-history" onclick="switchTab('history')">
+      <i class="fas fa-history mr-2 hidden sm:inline-block"></i>
+      연혁 및 실적
+     </button>
+     <button class="tab-btn py-3 md:py-4 px-2 rounded-xl font-medium text-sm md:text-base border border-gray-200 text-[#4a5e3a] hover:bg-gray-50" id="btn-partners" onclick="switchTab('partners')">
+      <i class="fas fa-map-marked-alt mr-2 hidden sm:inline-block"></i>
+      사업 파트너
+     </button>
+     <button class="tab-btn py-3 md:py-4 px-2 rounded-xl font-medium text-sm md:text-base border border-gray-200 text-[#4a5e3a] hover:bg-gray-50" id="btn-directions" onclick="switchTab('directions')">
+      <i class="fas fa-map-marked-alt mr-2 hidden sm:inline-block"></i>
+      오시는 길
+     </button>
+    </div>
+   </div>
+  </section>
+  <main class="py-20 container mx-auto px-6 max-w-5xl">
+   <div class="tab-content active" id="content-greetings">
+    <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-16">
+     <div class="w-full md:w-1/3">
+      <img alt="(주)서린 로고 및 철학" class="rounded-2xl shadow-xl w-full object-cover h-[400px]" src="https://andrew78kim-dot.github.io/seorin/Images/Logo.png"/>
+     </div>
+     <div class="w-full md:w-1/2">
+      <span class="text-xs font-bold tracking-wider text-[#c5a059] uppercase block mb-2">
+       CEO Message
+      </span>
+      <h2 class="serif text-4xl font-bold text-[#2d4f1e] mb-4">
+       자연과 인간의 이웃함,
+       <br/>
+       그 가치를 지켜갑니다.
+      </h2>
+      <div class="gold-underline mb-6"></div>
+      <div class="text-[#4a5e3a] leading-relaxed space-y-4 text-1xl">
+       <p>안녕하십니까? (주)서린의 홈페이지를 찾아주셔서 진심으로 감사드립니다.</p>
+       <p>저희 서린(瑞隣)은 <strong>'상서로움이 이웃하다'</strong>라는 기치 아래, 우리가 머무는 삶의 공간에 자연의 생명력과 품격을 불어넣는 조경 예술을 추구해 왔습니다.</p>
+       <p>조경은 단순히 나무를 심는 행위를 넘어, 시간이 흐를수록 깊이를 더해가는 시간의 예술입니다. 지난 20여 연간 쌓아온 현장 노하우와 진정성 있는 기술력을 바탕으로 공공 녹지, 주거 단지, 상업 공간에 이르기까지 푸른 쉼표를 찍어왔습니다.</p>
+       <p>언제나 고객의 신뢰에 보답하며 조경식재 및 시설물 설치의 선두 주자로서 지속 가능한 친환경 환경을 선도할 것을 약속드립니다. 감사합니다.</p>
+       <p class="pt-4 font-bold text-[#1c2b14] text-right serif text-lg">(주)서린 대표이사 김효영</p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="tab-content" id="content-history">
+    <div class="text-center mb-12">
+     <h2 class="serif text-3xl font-bold text-[#2d4f1e]">서린의 발자취</h2>
+     <p class="text-[#7a8f6e] text-sm mt-2">창립 이래 신뢰와 기술로 쌓아 올린 성공적인 프로젝트 연혁입니다.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-10 items-start">
+     <div class="md:col-span-1 history-timeline relative pl-6 space-y-8">
+      <div class="history-item relative pl-4">
+       <div class="text-base font-bold text-[#2d4f1e]">2024 ~ 현재</div>
+       <p class="text-xs text-[#4a5e3a] mt-1">강원권 우수 조경 건설사 선정 및 스마트 조경 유지관리 공법 전격 도입</p>
+      </div>
+      <div class="history-item relative pl-4">
+       <div class="text-base font-bold text-[#2d4f1e]">2020 ~ 2023</div>
+       <p class="text-xs text-[#4a5e3a] mt-1">기업부설 조경연구소 설립 및 전문건설업(비계·구조물해체공사) 면허 추가 확충</p>
+      </div>
+      <div class="history-item relative pl-4">
+       <div class="text-base font-bold text-[#2d4f1e]">2016 ~ 2019</div>
+       <p class="text-xs text-[#4a5e3a] mt-1">(주)서린 법인 설립 및 조경식재·시설물공사 전문건설업 면허 등록 취득</p>
+      </div>
+     </div>
+     <div class="md:col-span-2 bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+      <table class="w-full text-left border-collapse">
+       <thead>
+        <tr class="bg-gradient-to-r from-[#2d4f1e] to-[#3d6629] text-white text-xs font-semibold">
+         <th class="p-4">발주처/프로젝트명</th>
+         <th class="p-4">구분</th>
+         <th class="p-4 text-right">시기</th>
+        </tr>
+       </thead>
+       <tbody class="text-sm text-[#4a5e3a] divide-y divide-gray-100">
+        <tr class="hover:bg-[#f4f8f2] transition-colors">
+         <td class="p-4 font-bold text-[#2d4f1e]">원주시 단구동 근린공원 조성공사</td>
+         <td class="p-4"><span class="bg-[#f0f5ee] text-[#2d4f1e] px-2 py-1 rounded text-xs font-bold">조경식재</span></td>
+         <td class="p-4 text-right text-xs">2024</td>
+        </tr>
+        <tr class="hover:bg-[#f4f8f2] transition-colors">
+         <td class="p-4 font-bold text-[#2d4f1e]">한라대학교 캠퍼스 혁신파크 조경시설물</td>
+         <td class="p-4"><span class="bg-[#f0f5ee] text-[#2d4f1e] px-2 py-1 rounded text-xs font-bold">조경시설</span></td>
+         <td class="p-4 text-right text-xs">2023</td>
+        </tr>
+        <tr class="hover:bg-[#f4f8f2] transition-colors">
+         <td class="p-4 font-bold text-[#2d4f1e]">한국도로공사 고속도로 휴게소 녹화사업</td>
+         <td class="p-4"><span class="bg-[#f0f5ee] text-[#2d4f1e] px-2 py-1 rounded text-xs font-bold">조경식재</span></td>
+         <td class="p-4 text-right text-xs">2022</td>
+        </tr>
+        <tr class="hover:bg-[#f4f8f2] transition-colors">
+         <td class="p-4 font-bold text-[#2d4f1e]">LH 강원지역본부 아파트 단지 조경 유지관리</td>
+         <td class="p-4"><span class="bg-[#f0f5ee] text-[#2d4f1e] px-2 py-1 rounded text-xs font-bold">유지관리</span></td>
+         <td class="p-4 text-right text-xs">2021</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="tab-content" id="content-partners">
+    <div class="container mx-auto px-6">
+     <div class="text-center mb-16 sr-section">
+      <p class="section-desc">(주)서린과 함께 미래를 열어가는 협력사입니다.</p>
+     </div>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="partner-card sr-item sr-delay-1">
+       <div class="partner-icon-wrap"><i class="fas fa-seedling"></i></div>
+       <span>(주)에코엔</span>
+      </div>
+      <div class="partner-card sr-item sr-delay-2">
+       <div class="partner-icon-wrap"><i class="fas fa-handshake"></i></div>
+       <span>(주)효진조경개발</span>
+      </div>
+      <div class="partner-card sr-item sr-delay-3">
+       <div class="partner-icon-wrap"><i class="fas fa-city"></i></div>
+       <span>미래건설산업</span>
+      </div>
+      <div class="partner-card sr-item sr-delay-4">
+       <div class="partner-icon-wrap"><i class="fas fa-mountain"></i></div>
+       <span>한국조경연구소</span>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="tab-content" id="content-directions">
+    <div class="grid md:grid-cols-3 gap-10 items-center">
+     <div class="md:col-span-1 space-y-6">
+      <div>
+       <span class="text-xs font-bold tracking-widest text-[#c5a059] block mb-1">COMPANY LOCATION</span>
+       <h2 class="serif text-3xl font-bold text-[#2d4f1e] mb-4">본사 오시는 길</h2>
+       <div class="gold-underline"></div>
+      </div>
+      <div class="space-y-4 text-sm text-[#4a5e3a]">
+       <div class="flex items-start gap-3">
+        <div class="w-8 h-8 rounded-lg bg-[#f0f5ee] flex items-center justify-center text-[#2d4f1e] shrink-0">
+         <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div>
+         <p class="font-bold text-[#1c2b14]">도로명 주소</p>
+         <p class="mt-0.5">강원특별자치도 원주시 흥업면 남원로 67-9</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-3">
+        <div class="w-8 h-8 rounded-lg bg-[#f0f5ee] flex items-center justify-center text-[#2d4f1e] shrink-0">
+         <i class="fas fa-phone"></i>
+        </div>
+        <div>
+         <p class="font-bold text-[#1c2b14]">대표 전화</p>
+         <p class="mt-0.5">033-765-5242</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-3">
+        <div class="w-8 h-8 rounded-lg bg-[#f0f5ee] flex items-center justify-center text-[#2d4f1e] shrink-0">
+         <i class="fas fa-bus"></i>
+        </div>
+        <div>
+         <p class="font-bold text-[#1c2b14]">대중교통 안내</p>
+         <p class="mt-0.5 text-xs">원주역/시내 방면 버스 탑승 후 '흥업사거리' 하차 도보 5분</p>
+        </div>
+       </div>
+      </div>
+     </div>
+     
+     <div class="md:col-span-2 w-full h-[400px] rounded-2xl shadow-lg overflow-hidden border border-gray-200 relative bg-[#f7faf4]">
+      <iframe 
+       src="https://maps.google.com/maps?q=강원특별자치도%20원주시%20흥업면%20남원로%2067-9&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+       width="100%" 
+       height="100%" 
+       style="border:0;" 
+       allowfullscreen="" 
+       loading="lazy" 
+       referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      
+      <div class="absolute bottom-6 right-6">
+        <a class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#03c75a] text-white font-bold shadow-lg hover:brightness-95 transition text-sm" href="https://map.naver.com/p/search/%EA%B0%95%EC%9B%90%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84%20%EC%9B%90%EC%A3%BC%EC%8B%9C%20%ED%9D%A5%EC%97%85%EB%A9%B4%20%EB%82%A8%EC%9B%90%EB%A1%9C%2067-9" rel="noopener noreferrer" target="_blank">
+         <i class="fas fa-location-arrow"></i>
+         네이버지도 길찾기
+        </a>
+      </div>
+     </div>
+     </div>
+   </div>
+  </main>
+  <div data-include="site-footer"></div>
+  <script src="assets/js/common.js"></script>
+</body>
+</html>

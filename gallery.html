@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="utf-8"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <title>
+   (주)서린 - 시공 갤러리
+  </title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="(주)서린이 수행한 대표 조경 프로젝트를 사진과 상세 설명으로 확인할 수 있는 시공 갤러리입니다." name="description"/>
+  <meta content="조경 갤러리, 시공사례, 조경 포트폴리오, 서린 프로젝트, 조경 사진" name="keywords"/>
+  <meta content="index,follow" name="robots"/>
+  <meta content="(주)서린" name="author"/>
+  <meta content="#2d4f1e" name="theme-color"/>
+  <meta content="ko_KR" property="og:locale"/>
+  <meta content="website" property="og:type"/>
+  <meta content="(주)서린" property="og:site_name"/>
+  <meta content="(주)서린 - 시공 갤러리" property="og:title"/>
+  <meta content="(주)서린이 수행한 대표 조경 프로젝트를 사진과 상세 설명으로 확인할 수 있는 시공 갤러리입니다." property="og:description"/>
+  <meta content="https://andrew78kim-dot.github.io/seorin/Images/exam1.jpg" property="og:image"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="(주)서린 - 시공 갤러리" name="twitter:title"/>
+  <meta content="(주)서린이 수행한 대표 조경 프로젝트를 사진과 상세 설명으로 확인할 수 있는 시공 갤러리입니다." name="twitter:description"/>
+  <meta content="https://andrew78kim-dot.github.io/seorin/Images/exam1.jpg" name="twitter:image"/>
+  <link href="assets/css/common.css" rel="stylesheet"/>
+  <script type="application/ld+json">
+   {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "(주)서린",
+  "alternateName": "SEORIN CO., LTD.",
+  "logo": "https://andrew78kim-dot.github.io/seorin/Images/Logo.png",
+  "telephone": "033-765-5242",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "강원특별자치도 원주시 흥업면 남원로 67-9",
+    "addressLocality": "원주시",
+    "addressRegion": "강원특별자치도",
+    "addressCountry": "KR"
+  },
+  "description": "조경식재, 조경시설물, 조경유지관리를 수행하는 조경 전문 기업"
+}
+  </script>
+ </head>
+ <body data-page="gallery">
+  <div data-include="site-header">
+  </div>
+  <section class="page-hero">
+   <div class="container mx-auto px-6 relative z-10">
+    <div class="max-w-4xl sr-section">
+     <span class="hero-badge">
+      <i class="fas fa-leaf">
+      </i>
+      Portfolio Gallery
+     </span>
+     <h1 class="serif text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mt-5 mb-6">
+      (주)서린의 시공 갤러리
+     </h1>
+     <p class="hero-desc mb-10">
+      서린의 손길로 완성된 공간들을 만나보세요
+     </p>
+     <div class="flex flex-col sm:flex-row gap-4 sm:gap-10 items-start sm:items-center">
+      <a class="btn-primary" href="business.html">
+       사업분야 보기
+       <i class="fas fa-arrow-down">
+       </i>
+      </a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="section-padding bg-white" id="portfolio">
+   <div class="container mx-auto px-6">
+    <div class="text-center mb-12 sr-section">
+     <div class="gold-underline">
+     </div>
+     <div class="flex flex-wrap justify-center gap-3 mt-8">
+      <button class="filter-btn active" id="btn-all" onclick="filterGallery('all', this)">
+       전체보기
+      </button>
+      <button class="filter-btn" onclick="filterGallery('식재', this)">
+       조경식재
+      </button>
+      <button class="filter-btn" onclick="filterGallery('시설물', this)">
+       조경시설물
+      </button>
+      <button class="filter-btn" onclick="filterGallery('유지관리', this)">
+       유지관리
+      </button>
+     </div>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 gallery-grid" id="galleryContainer">
+     <div class="portfolio-item sr-item sr-delay-1" data-category="식재" id="proj-2023-1" onclick="openModal('proj-2023-1')">
+      <div class="img-container">
+       <img alt="반계리 은행나무" src="https://andrew78kim-dot.github.io/seorin/Images/exam1.jpg"/>
+       <div class="zoom-overlay">
+        <div class="zoom-icon">
+         <i class="fas fa-search-plus">
+         </i>
+        </div>
+       </div>
+      </div>
+      <div class="portfolio-summary">
+       <div class="cat">
+        2023 | 조경식재
+       </div>
+       <h4>
+        반계리 은행나무 주변 정비
+       </h4>
+       <p>
+        천연기념물 보호를 위한 지반 정비 및 수목 식재 공사
+       </p>
+      </div>
+     </div>
+     <div class="portfolio-item sr-item sr-delay-2" data-category="시설물" id="proj-2023-2" onclick="openModal('proj-2023-2')">
+      <div class="img-container">
+       <img alt="강릉 휴게소" src="https://andrew78kim-dot.github.io/seorin/Images/exam2.jpg"/>
+       <div class="zoom-overlay">
+        <div class="zoom-icon">
+         <i class="fas fa-search-plus">
+         </i>
+        </div>
+       </div>
+      </div>
+      <div class="portfolio-summary">
+       <div class="cat">
+        2023 | 시설물/식재
+       </div>
+       <h4>
+        강릉 휴게소 조경 공사
+       </h4>
+       <p>
+        고속도로 휴게소 내 수목 식재 및 벤치 시설물 설치
+       </p>
+      </div>
+     </div>
+     <div class="portfolio-item sr-item sr-delay-3" data-category="시설물" id="proj-2022-1" onclick="openModal('proj-2022-1')">
+      <div class="img-container">
+       <img alt="한라대학교 분수" src="https://andrew78kim-dot.github.io/seorin/Images/exam9.jpg"/>
+       <div class="zoom-overlay">
+        <div class="zoom-icon">
+         <i class="fas fa-search-plus">
+         </i>
+        </div>
+       </div>
+      </div>
+      <div class="portfolio-summary">
+       <div class="cat">
+        2022 | 수경시설
+       </div>
+       <h4>
+        한라대학교 분수대 시공
+       </h4>
+       <p>
+        캠퍼스 미관 개선을 위한 수경 공간 및 분수 시스템 구축
+       </p>
+      </div>
+     </div>
+     <div class="portfolio-item sr-item sr-delay-4" data-category="유지관리" id="proj-2022-2" onclick="openModal('proj-2022-2')">
+      <div class="img-container">
+       <img alt="노송 전정" src="https://andrew78kim-dot.github.io/seorin/Images/exam10.jpg"/>
+       <div class="zoom-overlay">
+        <div class="zoom-icon">
+         <i class="fas fa-search-plus">
+         </i>
+        </div>
+       </div>
+      </div>
+      <div class="portfolio-summary">
+       <div class="cat">
+        2022 | 유지관리
+       </div>
+       <h4>
+        단지 수로관 및 노송 전정
+       </h4>
+       <p>
+        대단지 아파트 수목 건강 관리 및 배수 시스템 정비
+       </p>
+      </div>
+     </div>
+     <div class="portfolio-item sr-item sr-delay-5" data-category="시설물" id="proj-2021-1" onclick="openModal('proj-2021-1')">
+      <div class="img-container">
+       <img alt="원주 공원 데크" src="https://andrew78kim-dot.github.io/seorin/Images/exam6.png"/>
+       <div class="zoom-overlay">
+        <div class="zoom-icon">
+         <i class="fas fa-search-plus">
+         </i>
+        </div>
+       </div>
+      </div>
+      <div class="portfolio-summary">
+       <div class="cat">
+        2021 | 조경시설물
+       </div>
+       <h4>
+        원주 공원 조경 및 데크 시공
+       </h4>
+       <p>
+        시민 휴식 공간 확충을 위한 산책로 데크 및 광장 조성
+       </p>
+      </div>
+     </div>
+     <div class="portfolio-item sr-item sr-delay-6" data-category="유지관리" id="proj-2026-1" onclick="openModal('proj-2026-1')">
+      <div class="img-container">
+       <img alt="노송 전정" src="https://andrew78kim-dot.github.io/seorin/Images/예초2.jpg"/>
+       <div class="zoom-overlay">
+        <div class="zoom-icon">
+         <i class="fas fa-search-plus">
+         </i>
+        </div>
+       </div>
+      </div>
+      <div class="portfolio-summary">
+       <div class="cat">
+        2026 | 유지관리
+       </div>
+       <h4>
+        단계천 예초작업
+       </h4>
+       <p>
+        원주시 단계천 산책로 예초작업
+       </p>
+      </div>
+     </div>
+    </div>
+    <div class="pagination-wrap" id="pagination">
+    </div>
+   </div>
+  </section>
+  <div class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-6" id="projectModal">
+   <div class="modal-content-wrap relative bg-white w-full max-w-5xl max-h-[90vh] rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl">
+    <button class="absolute top-4 right-4 z-20 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-gray-800 hover:bg-[#2d4f1e] hover:text-white transition-all shadow-md" onclick="closeModal()">
+     <i class="fas fa-times text-xl">
+     </i>
+    </button>
+    <div class="w-full md:w-3/5 bg-[#f0f5ee] relative group h-64 md:h-auto min-h-[300px]">
+     <img alt="프로젝트 메인 이미지" class="w-full h-full object-cover transition-opacity duration-300" id="modalMainImg" src=""/>
+     <button class="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-black/40 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-black/70" onclick="prevModalImg()">
+      <i class="fas fa-chevron-left">
+      </i>
+     </button>
+     <button class="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-black/40 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-black/70" onclick="nextModalImg()">
+      <i class="fas fa-chevron-right">
+      </i>
+     </button>
+     <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10" id="modalDots">
+     </div>
+    </div>
+    <div class="w-full md:w-2/5 bg-white p-8 md:p-10 flex flex-col overflow-y-auto max-h-[50vh] md:max-h-[90vh]">
+     <span class="text-xs font-bold text-[#c5a059] tracking-widest uppercase mb-3" id="modalCat">
+     </span>
+     <h3 class="text-2xl md:text-3xl font-bold font-serif text-[#2d4f1e] mb-4 leading-tight" id="modalTitle">
+     </h3>
+     <div class="w-12 h-1 bg-gradient-to-r from-[#c5a059] to-[#e8c97d] mb-6 rounded-full">
+     </div>
+     <h4 class="font-bold text-gray-800 text-sm mb-2">
+      <i class="fas fa-info-circle text-[#c5a059] mr-1">
+      </i>
+      프로젝트 요약
+     </h4>
+     <p class="text-gray-600 text-[0.95rem] mb-8 leading-relaxed font-medium bg-[#f7f9f4] p-4 rounded-xl" id="modalSummary">
+     </p>
+     <h4 class="font-bold text-gray-800 text-sm mb-3">
+      <i class="fas fa-tools text-[#c5a059] mr-1">
+      </i>
+      상세 작업 내용
+     </h4>
+     <div class="text-gray-600 text-[0.92rem] leading-relaxed space-y-4" id="modalDetails">
+     </div>
+    </div>
+   </div>
+  </div>
+  <div data-include="site-footer">
+  </div>
+  <script src="assets/js/common.js">
+  </script>
+ </body>
+</html>
+

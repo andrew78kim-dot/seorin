@@ -1,1704 +1,465 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(주)서린 - 자연을 짓는 예술</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
-
-        :root {
-            --primary-green: #2d4f1e;
-            --dark-green:    #1a3a1e;
-            --light-green:   #f0f5ee;
-            --accent-gold:   #c5a059;
-            --accent-gold-light: #e8c97d;
-            --soft-bg:       #f7f9f4;
-            --text-dark:     #1c2b14;
-            --text-mid:      #4a5e3a;
-            --text-light:    #7a8f6e;
-        }
-
-        * { box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background: var(--soft-bg);
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
-
-        .serif { font-family: 'Noto Serif KR', serif; }
-
-        /* =============================================
-           SCROLL REVEAL — 핵심 슬라이드업 시스템
-        ============================================= */
-        .sr-section {
-            opacity: 0;
-            transform: translateY(70px);
-            transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-            will-change: opacity, transform;
-        }
-        .sr-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 개별 요소 reveal (stagger용) */
-        .sr-item {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-            will-change: opacity, transform;
-        }
-        .sr-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 왼쪽에서 슬라이드인 */
-        .sr-left {
-            opacity: 0;
-            transform: translateX(-60px);
-            transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .sr-left.visible { opacity: 1; transform: translateX(0); }
-
-        /* 오른쪽에서 슬라이드인 */
-        .sr-right {
-            opacity: 0;
-            transform: translateX(60px);
-            transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .sr-right.visible { opacity: 1; transform: translateX(0); }
-
-        /* stagger 딜레이 */
-        .sr-delay-1 { transition-delay: 0.1s; }
-        .sr-delay-2 { transition-delay: 0.2s; }
-        .sr-delay-3 { transition-delay: 0.3s; }
-        .sr-delay-4 { transition-delay: 0.4s; }
-        .sr-delay-5 { transition-delay: 0.5s; }
-        .sr-delay-6 { transition-delay: 0.6s; }
-
-        /* =============================================
-           NAVIGATION
-        ============================================= */
-        .nav-glass {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(45, 79, 30, 0.08);
-            transition: all 0.35s ease;
-        }
-        .nav-glass.scrolled {
-            padding-top: 0.5rem !important;
-            padding-bottom: 0.5rem !important;
-            box-shadow: 0 4px 24px rgba(45, 79, 30, 0.10);
-            background: rgba(255, 255, 255, 0.97);
-        }
-
-        .nav-logo {
-            font-family: 'Noto Serif KR', serif;
-            color: var(--primary-green);
-            letter-spacing: 0.05em;
-            position: relative;
-            display: inline-block;
-            /* 더 선명하고 고급스러운 그라데이션 */
-            background: linear-gradient(135deg, #1a3a1e 0%, #c5a059 50%, #1a3a1e 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            /* 선명도를 높이기 위한 드롭 섀도우 */
-            filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.2));
-            
-            /* 시선을 끄는 애니메이션 효과 */
-            animation: logo-shimmer 3s linear infinite, logo-pulse 2s ease-in-out infinite;
-            transition: all 0.5s ease;
-        }
-
-        @keyframes logo-pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.2)); }
-            50% { transform: scale(1.03); filter: drop-shadow(0px 4px 8px rgba(197,160,89,0.4)); }
-        }
-
-        @keyframes logo-shimmer {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        @keyframes logo-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-
-        .nav-logo:hover {
-            transform: scale(1.08) translateY(-6px);
-            filter: drop-shadow(0px 8px 15px rgba(45, 79, 30, 0.3));
-            letter-spacing: 0.02em;
-        }
-
-        .nav-link {
-            position: relative;
-            color: #4a5e3a;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
-            letter-spacing: 0.02em;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover { color: var(--primary-green); }
-        .nav-link:hover::after { width: 100%; }
-
-        .nav-cta {
-            background: var(--primary-green);
-            color: white !important;
-            padding: 0.55rem 1.4rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 14px rgba(45,79,30,0.3);
-        }
-        .nav-cta:hover {
-            background: var(--accent-gold);
-            box-shadow: 0 6px 20px rgba(197,160,89,0.45);
-            transform: translateY(-2px);
-        }
-        .nav-cta::after { display: none !important; }
-
-        /* =============================================
-           HERO
-        ============================================= */
-        .hero-section {
-            position: relative;
-            height: 100vh;
-            min-height: 680px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            overflow: hidden;
-        }
-
-        /* =============================================
-           HERO SLIDER
-        ============================================= */
-        .hero-slides-wrapper {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .hero-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .hero-slide.active { opacity: 1; }
-        .hero-slide-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            transform: scale(1.0);
-            transition: transform 8s ease-out;
-        }
-        .hero-slide.active .hero-slide-bg { transform: scale(1.12); }
-        .hero-slide-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(160deg, rgba(15,30,8,0.30) 0%, rgba(10,25,5,0.62) 100%);
-        }
-        .hero-slide-content {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 1.5rem;
-            z-index: 2;
-        }
-        .slide-inner {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.9s ease 0.5s, transform 0.9s ease 0.5s;
-            max-width: 900px;
-            width: 100%;
-        }
-        .hero-slide.active .slide-inner {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* 슬라이더 화살표 */
-        .slider-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            width: 52px; height: 52px;
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1.5px solid rgba(255,255,255,0.25);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-        .slider-arrow:hover {
-            background: rgba(197,160,89,0.35);
-            border-color: var(--accent-gold);
-            transform: translateY(-50%) scale(1.08);
-        }
-        .slider-prev { left: 24px; }
-        .slider-next { right: 24px; }
-        /* 슬라이더 도트 */
-        .slider-nav-dots {
-            position: absolute;
-            bottom: 88px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .slider-dot {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.35);
-            border: 1.5px solid rgba(255,255,255,0.65);
-            cursor: pointer;
-            transition: all 0.35s ease;
-            padding: 0;
-        }
-        .slider-dot.active {
-            background: var(--accent-gold);
-            border-color: var(--accent-gold);
-            width: 30px;
-            border-radius: 5px;
-        }
-        /* 프로그레스 바 */
-        .slider-progress {
-            position: absolute;
-            bottom: 0; left: 0;
-            height: 3px;
-            background: var(--accent-gold);
-            z-index: 10;
-            width: 0%;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                160deg,
-                rgba(15, 30, 8, 0.30) 0%,
-                rgba(10, 25, 5, 0.62) 100%
-            );
-            z-index: 1;
-        }
-
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 200px;
-            background: linear-gradient(to top, var(--soft-bg) 0%, transparent 100%);
-            z-index: 2;
-        }
-
-        .hero-content { position: relative; z-index: 3; }
-
-        @keyframes kenBurns {
-            from { transform: scale(1.0); }
-            to   { transform: scale(1.12); }
-        }
-
-        /* Hero text animations */
-        @keyframes fadeInUp {
-            from { opacity:0; transform:translateY(44px); }
-            to   { opacity:1; transform:translateY(0); }
-        }
-        @keyframes fadeInDown {
-            from { opacity:0; transform:translateY(-30px); }
-            to   { opacity:1; transform:translateY(0); }
-        }
-        @keyframes expandWidth {
-            from { width:0; opacity:0; }
-            to   { width:70px; opacity:1; }
-        }
-        @keyframes popUp {
-            0%   { opacity:0; transform:translateY(28px) scale(0.9); }
-            70%  { transform:translateY(-5px) scale(1.04); }
-            100% { opacity:1; transform:translateY(0) scale(1); }
-        }
-        @keyframes bounce {
-            0%,100% { transform:translateX(-50%) translateY(0); }
-            50%     { transform:translateX(-50%) translateY(10px); }
-        }
-
-        .hero-divider {
-            display: block;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            margin: 0 auto 28px;
-            animation: expandWidth 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s both;
-        }
-        .hero-subtitle {
-            animation: fadeInDown 0.9s ease 0.6s both;
-            font-weight: 300;
-            letter-spacing: 0.35em;
-        }
-        .hero-title {
-            animation: fadeInUp 1.0s ease 1.0s both;
-            line-height: 1.25;
-            text-shadow: 0 2px 24px rgba(0,0,0,0.25);
-        }
-        .hero-description {
-            animation: fadeInUp 0.9s ease 1.4s both;
-            text-shadow: 0 1px 8px rgba(0,0,0,0.2);
-        }
-        .hero-btn-primary  { animation: popUp 0.85s cubic-bezier(0.34,1.56,0.64,1) 1.8s both; }
-        .hero-btn-secondary{ animation: popUp 0.85s cubic-bezier(0.34,1.56,0.64,1) 2.0s both; }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 44px; left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-            animation: fadeInUp 1s ease 2.6s both, bounce 1.8s ease-in-out 3.6s infinite;
-        }
-
-        /* =============================================
-           SECTION COMMON
-        ============================================= */
-        .section-padding { padding: 110px 0; }
-
-        .section-label {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--accent-gold);
-            margin-bottom: 0.75rem;
-        }
-        .section-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: clamp(1.8rem, 3.5vw, 2.75rem);
-            font-weight: 700;
-            color: var(--primary-green);
-            line-height: 1.3;
-            margin-bottom: 1rem;
-        }
-        .section-desc {
-            color: var(--text-light);
-            font-size: 1rem;
-            line-height: 1.8;
-            max-width: 540px;
-            margin: 0 auto;
-        }
-
-        .gold-underline {
-            display: inline-block;
-            width: 48px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
-            border-radius: 2px;
-            margin-bottom: 2rem;
-        }
-
-        /* =============================================
-           ABOUT
-        ============================================= */
-        .about-img-wrap {
-            position: relative;
-            border-radius: 20px;
-            overflow: visible;
-        }
-        .about-img-wrap img {
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(45,79,30,0.18);
-            width: 100%;
-            display: block;
-        }
-        .about-badge {
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
-            padding: 1.6rem 2rem;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 12px 32px rgba(197,160,89,0.4);
-        }
-        .about-badge p:first-child {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: white;
-            line-height: 1;
-            font-family: 'Noto Serif KR', serif;
-        }
-        .about-badge p:last-child {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: rgba(255,255,255,0.85);
-            letter-spacing: 0.15em;
-            margin-top: 4px;
-        }
-
-        .value-card {
-            border-left: 3px solid var(--accent-gold);
-            padding-left: 1.1rem;
-            padding-top: 0.2rem;
-            padding-bottom: 0.2rem;
-        }
-        .value-card h4 {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-        .value-card p { font-size: 0.84rem; color: var(--text-light); line-height: 1.6; }
-
-        /* stat strip */
-        .stat-strip {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: #e8ede4;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-top: 3rem;
-        }
-        .stat-cell {
-            background: white;
-            padding: 1.6rem 1rem;
-            text-align: center;
-        }
-        .stat-cell .num {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-green);
-            line-height: 1;
-        }
-        .stat-cell .unit { font-size: 0.9rem; color: var(--accent-gold); font-weight: 700; }
-        .stat-cell .lbl { font-size: 0.75rem; color: var(--text-light); margin-top: 4px; }
-
-        /* =============================================
-           SERVICES
-        ============================================= */
-        .services-bg {
-            background: linear-gradient(160deg, #f0f5ee 0%, #e8f0e4 100%);
-        }
-        .service-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            box-shadow: 0 4px 24px rgba(45,79,30,0.06);
-            border: 1px solid rgba(45,79,30,0.06);
-            transition: all 0.45s cubic-bezier(0.4,0,0.2,1);
-            height: 100%;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-green), var(--accent-gold));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-        .service-card:hover::before { transform: scaleX(1); }
-        .service-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 28px 60px rgba(45,79,30,0.14);
-        }
-        .icon-box {
-            width: 72px; height: 72px;
-            background: var(--light-green);
-            color: var(--primary-green);
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            font-size: 1.6rem;
-            transition: all 0.45s ease;
-        }
-        .service-card:hover .icon-box {
-            background: var(--primary-green);
-            color: var(--accent-gold);
-            transform: rotateY(360deg);
-        }
-        .service-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.75rem;
-        }
-        .service-card p { font-size: 0.86rem; color: var(--text-light); line-height: 1.8; }
-
-        /* =============================================
-           HISTORY
-        ============================================= */
-        .history-section-bg {
-            background: linear-gradient(180deg, #f7f9f4 0%, #edf2e9 100%);
-        }
-
-        .history-timeline { position: relative; }
-        .history-timeline::before {
-            content: '';
-            position: absolute;
-            left: 7px; top: 0; bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent-gold), rgba(197,160,89,0.15));
-        }
-        .history-item {
-            position: relative;
-            padding-left: 2.5rem;
-            margin-bottom: 2rem;
-        }
-        .history-item::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 4px;
-            width: 16px; height: 16px;
-            background: var(--primary-green);
-            border: 3px solid white;
-            border-radius: 50%;
-            box-shadow: 0 0 0 3px rgba(197,160,89,0.35);
-        }
-        .history-item .year {
-            font-size: 1rem; font-weight: 800;
-            color: var(--primary-green);
-            margin-bottom: 3px;
-        }
-        .history-item p {
-            font-size: 0.88rem;
-            color: var(--text-mid);
-            line-height: 1.7;
-        }
-
-        /* performance table */
-        .perf-table-wrap {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 8px 40px rgba(45,79,30,0.08);
-            overflow: hidden;
-        }
-        .perf-table-wrap table { width: 100%; border-collapse: collapse; }
-        .perf-table-wrap thead tr {
-            background: linear-gradient(90deg, var(--primary-green), #3d6629);
-        }
-        .perf-table-wrap thead th {
-            padding: 1rem 1.25rem;
-            font-size: 0.82rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            color: rgba(255,255,255,0.9);
-            text-align: left;
-        }
-        .perf-table-wrap tbody tr {
-            border-bottom: 1px solid #f0f4ee;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .perf-table-wrap tbody tr:last-child { border-bottom: none; }
-        .perf-table-wrap tbody tr:hover {
-            background: #f4f8f2;
-            transform: translateX(4px);
-        }
-        .perf-table-wrap tbody td {
-            padding: 1rem 1.25rem;
-            font-size: 0.88rem;
-            color: var(--text-mid);
-        }
-        .perf-table-wrap tbody td:first-child {
-            font-weight: 700;
-            color: var(--primary-green);
-            font-size: 0.95rem;
-        }
-        .tag-badge {
-            display: inline-block;
-            background: var(--light-green);
-            color: var(--primary-green);
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-        }
-        .arrow-icon { color: var(--accent-gold); }
-
-        /* =============================================
-           PORTFOLIO GALLERY
-        ============================================= */
-        .portfolio-item {
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-        }
-        .portfolio-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 16px 48px rgba(45,79,30,0.18);
-        }
-        .portfolio-item img {
-            width: 100%; height: 280px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        .portfolio-item:hover img { transform: scale(1.08); }
-        .portfolio-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                160deg,
-                rgba(30,60,15,0.92) 0%,
-                rgba(45,79,30,0.85) 100%
-            );
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-start;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            color: white;
-            padding: 1.75rem;
-        }
-        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
-        .portfolio-overlay .cat {
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            color: var(--accent-gold);
-            margin-bottom: 0.4rem;
-        }
-        .portfolio-overlay h4 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-        .portfolio-overlay p { font-size: 0.8rem; opacity: 0.8; line-height: 1.6; }
-
-        .filter-btn {
-            font-size: 0.875rem;
-            font-weight: 500;
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            border: 1.5px solid #d4ddc9;
-            color: var(--text-light);
-            background: white;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        .filter-btn:hover { border-color: var(--primary-green); color: var(--primary-green); }
-        .filter-btn.active {
-            background: var(--primary-green);
-            color: white !important;
-            border-color: var(--primary-green);
-            font-weight: 700;
-            box-shadow: 0 4px 14px rgba(45,79,30,0.25);
-        }
-
-        /* highlight ring (gallery jump) */
-        .highlight-ring {
-            outline: 5px solid var(--accent-gold);
-            outline-offset: 4px;
-            z-index: 20;
-        }
-
-        /* =============================================
-           PARTNERS
-        ============================================= */
-        .partners-bg {
-            background: white;
-        }
-        .partner-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1.5rem;
-            border-radius: 18px;
-            border: 1.5px solid #e8ede4;
-            background: white;
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-        .partner-card:hover {
-            border-color: var(--accent-gold);
-            box-shadow: 0 12px 32px rgba(197,160,89,0.18);
-            transform: translateY(-8px);
-        }
-        .partner-icon-wrap {
-            width: 72px; height: 72px;
-            background: var(--light-green);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.75rem;
-            color: var(--primary-green);
-            transition: all 0.4s ease;
-        }
-        .partner-card:hover .partner-icon-wrap {
-            background: var(--primary-green);
-            color: var(--accent-gold);
-        }
-        .partner-card span {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            text-align: center;
-        }
-
-        /* =============================================
-           CONTACT
-        ============================================= */
-        .contact-section {
-            background: linear-gradient(135deg, #1a3a1e 0%, #0f2412 50%, #1a3a1e 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .contact-section::before {
-            content: '';
-            position: absolute;
-            top: -30%; right: -10%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(197,160,89,0.08) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .contact-section::after {
-            content: '';
-            position: absolute;
-            bottom: -20%; left: -10%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(45,79,30,0.3) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .contact-info-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-        .contact-icon {
-            flex-shrink: 0;
-            width: 46px; height: 46px;
-            background: rgba(197,160,89,0.18);
-            border: 1px solid rgba(197,160,89,0.35);
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--accent-gold);
-            font-size: 1rem;
-        }
-
-        /* Form */
-        .contact-form {
-            background: white;
-            border-radius: 28px;
-            padding: 3rem;
-            box-shadow: 0 32px 80px rgba(0,0,0,0.18);
-        }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-label { font-size: 0.78rem; font-weight: 700; color: #5a6a4e; letter-spacing: 0.06em; text-transform: uppercase; }
-        .form-input {
-            padding: 0.9rem 1.1rem;
-            background: #f7f9f4;
-            border: 1.5px solid #dde8d6;
-            border-radius: 12px;
-            font-size: 0.92rem;
-            color: var(--text-dark);
-            font-family: 'Noto Sans KR', sans-serif;
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .form-input:focus {
-            border-color: var(--primary-green);
-            box-shadow: 0 0 0 4px rgba(45,79,30,0.08);
-            background: white;
-        }
-        .form-input::placeholder { color: #b0bda6; }
-        .btn-submit {
-            width: 100%;
-            background: linear-gradient(90deg, var(--primary-green), #3d6629);
-            color: white;
-            padding: 1.1rem;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            border: none;
-            cursor: pointer;
-            transition: all 0.35s ease;
-            box-shadow: 0 8px 24px rgba(45,79,30,0.3);
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-        .btn-submit:hover {
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
-            box-shadow: 0 12px 32px rgba(197,160,89,0.45);
-            transform: translateY(-2px);
-        }
-        .btn-submit:active { transform: scale(0.98); }
-
-        /* =============================================
-           FOOTER
-        ============================================= */
-        footer {
-            background: #0d1f0a;
-            color: rgba(255,255,255,0.55);
-        }
-        footer .footer-logo {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: rgba(255,255,255,0.75);
-            margin-bottom: 1rem;
-        }
-        footer .footer-divider {
-            width: 40px; height: 2px;
-            background: var(--accent-gold);
-            margin: 0 auto 1.25rem;
-            border-radius: 2px;
-        }
-        footer p { font-size: 0.8rem; line-height: 2; }
-
-        /* =============================================
-           HERO BUTTONS
-        ============================================= */
-        .btn-hero-primary {
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
-            color: var(--text-dark);
-            padding: 0.9rem 2.2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 24px rgba(197,160,89,0.35);
-            display: inline-block;
-        }
-        .btn-hero-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 32px rgba(197,160,89,0.55);
-        }
-        .btn-hero-secondary {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(8px);
-            color: white;
-            padding: 0.9rem 2.2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            border: 1.5px solid rgba(255,255,255,0.4);
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        .btn-hero-secondary:hover {
-            background: rgba(255,255,255,0.22);
-            border-color: rgba(255,255,255,0.7);
-            transform: translateY(-3px);
-        }
-
-        /* =============================================
-           MOBILE MENU
-        ============================================= */
-        #mobileMenu {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10,24,5,0.96);
-            z-index: 200;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2rem;
-        }
-        #mobileMenu.open { display: flex; }
-        #mobileMenu a {
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-            transition: color 0.3s;
-        }
-        #mobileMenu a:hover { color: var(--accent-gold); }
-        #mobileClose {
-            position: absolute;
-            top: 1.5rem; right: 1.5rem;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        #mobileClose:hover { color: var(--accent-gold); }
-
-        /* =============================================
-           RESPONSIVE TWEAKS
-        ============================================= */
-        @media (max-width: 768px) {
-            .section-padding { padding: 70px 0; }
-            .contact-form { padding: 2rem 1.5rem; }
-            .about-badge { display: none; }
-            .stat-strip { grid-template-columns: repeat(3,1fr); }
-        }
-    </style>
-</head>
-<body>
-
-<!-- ─── MOBILE MENU ────────────────────────────────── -->
-<div id="mobileMenu">
-    <i class="fas fa-times" id="mobileClose" onclick="closeMobileMenu()"></i>
-    <a href="#home"      onclick="closeMobileMenu()">홈</a>
-    <a href="#about"     onclick="closeMobileMenu()">회사소개</a>
-    <a href="#services"  onclick="closeMobileMenu()">사업분야</a>
-    <a href="#history"   onclick="closeMobileMenu()">연혁/실적</a>
-    <a href="#partners"  onclick="closeMobileMenu()">사업파트너</a>
-    <a href="#portfolio" onclick="closeMobileMenu()">갤러리</a>
-    <a href="#contact"   onclick="closeMobileMenu()" style="color:var(--accent-gold); font-weight:700;">문의하기</a>
-</div>
-
-<!-- ─── NAVIGATION ────────────────────────────────── -->
-<nav class="fixed w-full z-50 nav-glass py-4" id="mainNav">
-    <div class="container mx-auto px-6 flex justify-between items-center">
-        <span class="nav-logo text-3xl font-black">(주) 서린</span>
-
-        <!-- 데스크톱 메뉴 -->
-        <div class="hidden md:flex items-center space-x-8">
-            <a href="#home"      class="nav-link">홈</a>
-            <a href="#about"     class="nav-link">회사소개</a>
-            <a href="#services"  class="nav-link">사업분야</a>
-            <a href="#history"   class="nav-link">연혁/실적</a>
-            <a href="#partners"  class="nav-link">파트너</a>
-            <a href="#portfolio" class="nav-link">갤러리</a>
-            <a href="#contact"   class="nav-link nav-cta">문의하기</a>
-        </div>
-
-        <!-- 모바일 햄버거 -->
-        <button class="md:hidden text-2xl text-[#2d4f1e]" onclick="document.getElementById('mobileMenu').classList.add('open')">
-            <i class="fas fa-bars"></i>
-        </button>
+ <head>
+  <meta charset="utf-8"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <title>
+   (주)서린 - 자연을 짓는 예술
+  </title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="(주)서린은 자연과 건축의 조화를 바탕으로 조경식재, 시설물 시공, 유지관리까지 아우르는 프리미엄 조경 서비스를 제공합니다." name="description"/>
+  <meta content="서린, 조경, 조경식재, 조경시설물, 조경유지관리, 원주 조경, 시공사례" name="keywords"/>
+  <meta content="index,follow" name="robots"/>
+  <meta content="(주)서린" name="author"/>
+  <meta content="#2d4f1e" name="theme-color"/>
+  <meta content="ko_KR" property="og:locale"/>
+  <meta content="website" property="og:type"/>
+  <meta content="(주)서린" property="og:site_name"/>
+  <meta content="(주)서린 - 자연을 짓는 예술" property="og:title"/>
+  <meta content="(주)서린은 자연과 건축의 조화를 바탕으로 조경식재, 시설물 시공, 유지관리까지 아우르는 프리미엄 조경 서비스를 제공합니다." property="og:description"/>
+  <meta content="https://andrew78kim-dot.github.io/seorin/Images/land2.jpg" property="og:image"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="(주)서린 - 자연을 짓는 예술" name="twitter:title"/>
+  <meta content="(주)서린은 자연과 건축의 조화를 바탕으로 조경식재, 시설물 시공, 유지관리까지 아우르는 프리미엄 조경 서비스를 제공합니다." name="twitter:description"/>
+  <meta content="https://andrew78kim-dot.github.io/seorin/Images/land2.jpg" name="twitter:image"/>
+  <link href="assets/css/common.css" rel="stylesheet"/>
+  <script type="application/ld+json">
+   {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "(주)서린",
+  "alternateName": "SEORIN CO., LTD.",
+  "logo": "https://andrew78kim-dot.github.io/seorin/Images/Logo.png",
+  "telephone": "033-765-5242",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "강원특별자치도 원주시 흥업면 남원로 67-9",
+    "addressLocality": "원주시",
+    "addressRegion": "강원특별자치도",
+    "addressCountry": "KR"
+  },
+  "description": "조경식재, 조경시설물, 조경유지관리를 수행하는 조경 전문 기업"
+}
+  </script>
+ </head>
+ <body data-page="index">
+  <div data-include="site-header">
+  </div>
+  <section class="hero-section" id="home">
+   <div class="hero-slides-wrapper">
+    <div class="hero-slide active" id="slide-1">
+     <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/land2.jpg');">
+     </div>
+     <div class="hero-slide-overlay">
+     </div>
+     <div class="hero-slide-content">
+      <div class="slide-inner">
+       <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;">
+       </span>
+       <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">
+        Seorin Co., Ltd.
+       </h2>
+       <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
+        자연의 품격을 담은
+        <br/>
+        고품격 공간의 창조
+       </h1>
+       <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
+        (주)서린은 자연과 건축의 완벽한 조화를 추구합니다.
+        <br class="hidden md:block"/>
+        감각적인 설계로 당신의 공간에 생명력을 불어넣습니다.
+       </p>
+       <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a class="btn-hero-primary" href="#contact">
+         상담 신청하기
+         <i class="fas fa-arrow-right ml-2 text-sm">
+         </i>
+        </a>
+        <a class="btn-hero-secondary" href="gallery.html">
+         시공사례 둘러보기
+        </a>
+       </div>
+      </div>
+     </div>
     </div>
-</nav>
-
-<!-- ─── HERO SLIDER ─────────────────────────────── -->
-<section id="home" class="hero-section">
-
-    <!-- ── 슬라이드 래퍼 ── -->
-    <div class="hero-slides-wrapper">
-
-        <!-- Slide 1 : 자연의 품격 -->
-        <div class="hero-slide active" id="slide-1">
-            <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/land2.jpg');"></div>
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-                <div class="slide-inner">
-                    <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;"></span>
-                    <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">Seorin Co., Ltd.</h2>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
-                        자연의 품격을 담은<br>고품격 공간의 창조
-                    </h1>
-                    <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
-                        (주)서린은 자연과 건축의 완벽한 조화를 추구합니다.<br class="hidden md:block">
-                        감각적인 설계로 당신의 공간에 생명력을 불어넣습니다.
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="#contact"   class="btn-hero-primary">상담 신청하기 <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
-                        <a href="#portfolio" class="btn-hero-secondary">시공사례 둘러보기</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 2 : 20년 경험 -->
-        <div class="hero-slide" id="slide-2">
-            <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/land3.jpg');"></div>
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-                <div class="slide-inner">
-                    <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;"></span>
-                    <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">Our Expertise</h2>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
-                        20년 경험이 만든<br>명품 조경의 세계
-                    </h1>
-                    <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
-                        전국에서 선별한 명품 수목과 최신 조경 기술로<br class="hidden md:block">
-                        당신만의 특별한 공간을 완성합니다.
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="#services"  class="btn-hero-primary">사업분야 알아보기 <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
-                        <a href="#portfolio" class="btn-hero-secondary">포트폴리오 보기</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3 : 200+ 프로젝트 -->
-        <div class="hero-slide" id="slide-3">
-            <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/land-night1.png');"></div>
-            <div class="hero-slide-overlay"></div>
-            <div class="hero-slide-content">
-                <div class="slide-inner">
-                    <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;"></span>
-                    <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">Our Projects</h2>
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
-                        200+ 프로젝트가<br>증명하는 서린의 실력
-                    </h1>
-                    <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
-                        공원, 아파트, 대학교, 고속도로 휴게소까지<br class="hidden md:block">
-                        다양한 공간에서 서린의 전문성을 경험하세요.
-                    </p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="#history" class="btn-hero-primary">실적 보기 <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
-                        <a href="#contact" class="btn-hero-secondary">문의하기</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div><!-- /hero-slides-wrapper -->
-
-    <!-- 이전 / 다음 화살표 -->
-    <button class="slider-arrow slider-prev" onclick="heroSlider.prev()" aria-label="이전 슬라이드">
-        <i class="fas fa-chevron-left"></i>
+    <div class="hero-slide" id="slide-2">
+     <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/land3.jpg');">
+     </div>
+     <div class="hero-slide-overlay">
+     </div>
+     <div class="hero-slide-content">
+      <div class="slide-inner">
+       <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;">
+       </span>
+       <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">
+        Our Expertise
+       </h2>
+       <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
+        20년 경험이 만든
+        <br/>
+        명품 조경의 세계
+       </h1>
+       <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
+        전국에서 선별한 명품 수목과 최신 조경 기술로
+        <br class="hidden md:block"/>
+        당신만의 특별한 공간을 완성합니다.
+       </p>
+       <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a class="btn-hero-primary" href="business.html">
+         사업분야 알아보기
+         <i class="fas fa-arrow-right ml-2 text-sm">
+         </i>
+        </a>
+        <a class="btn-hero-secondary" href="gallery.html">
+         포트폴리오 보기
+        </a>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="hero-slide" id="slide-3">
+     <div class="hero-slide-bg" style="background-image:url('https://andrew78kim-dot.github.io/seorin/Images/land-night1.png');">
+     </div>
+     <div class="hero-slide-overlay">
+     </div>
+     <div class="hero-slide-content">
+      <div class="slide-inner">
+       <span style="display:block;height:2px;width:70px;background:linear-gradient(90deg,transparent,#c5a059,transparent);margin:0 auto 28px;">
+       </span>
+       <h2 class="text-base md:text-xl mb-5 text-white/80 font-light" style="letter-spacing:.35em;">
+        Our Projects
+       </h2>
+       <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold serif text-white mb-8 leading-tight" style="text-shadow:0 2px 24px rgba(0,0,0,.25);">
+        200+ 프로젝트가
+        <br/>
+        증명하는 서린의 실력
+       </h1>
+       <p class="text-base md:text-xl mb-12 font-light text-white/90 max-w-2xl mx-auto leading-relaxed" style="text-shadow:0 1px 8px rgba(0,0,0,.2);">
+        공원, 아파트, 대학교, 고속도로 휴게소까지
+        <br class="hidden md:block"/>
+        다양한 공간에서 서린의 전문성을 경험하세요.
+       </p>
+       <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a class="btn-hero-primary" href="history.html">
+         실적 보기
+         <i class="fas fa-arrow-right ml-2 text-sm">
+         </i>
+        </a>
+        <a class="btn-hero-secondary" href="#contact">
+         문의하기
+        </a>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <button aria-label="이전 슬라이드" class="slider-arrow slider-prev" onclick="heroSlider.prev()">
+    <i class="fas fa-chevron-left">
+    </i>
+   </button>
+   <button aria-label="다음 슬라이드" class="slider-arrow slider-next" onclick="heroSlider.next()">
+    <i class="fas fa-chevron-right">
+    </i>
+   </button>
+   <div class="slider-nav-dots">
+    <button aria-label="슬라이드 1" class="slider-dot active" onclick="heroSlider.goTo(0)">
     </button>
-    <button class="slider-arrow slider-next" onclick="heroSlider.next()" aria-label="다음 슬라이드">
-        <i class="fas fa-chevron-right"></i>
+    <button aria-label="슬라이드 2" class="slider-dot" onclick="heroSlider.goTo(1)">
     </button>
-
-    <!-- 페이지 도트 -->
-    <div class="slider-nav-dots">
-        <button class="slider-dot active" onclick="heroSlider.goTo(0)" aria-label="슬라이드 1"></button>
-        <button class="slider-dot"        onclick="heroSlider.goTo(1)" aria-label="슬라이드 2"></button>
-        <button class="slider-dot"        onclick="heroSlider.goTo(2)" aria-label="슬라이드 3"></button>
-    </div>
-
-    <!-- 스크롤 인디케이터 -->
-    <div class="scroll-indicator text-white/60 flex flex-col items-center gap-2">
-        <span class="text-xs tracking-widest uppercase">Scroll</span>
-        <i class="fas fa-chevron-down text-sm"></i>
-    </div>
-
-    <!-- 프로그레스 바 -->
-    <div class="slider-progress" id="sliderProgress"></div>
-
-</section>
-
-<!-- ─── ABOUT ─────────────────────────────────────── -->
-<section id="about" class="section-padding bg-white">
-    <div class="container mx-auto px-6">
-        <div class="flex flex-col md:flex-row items-center gap-16 lg:gap-20">
-
-            <!-- 왼쪽 이미지 -->
-            <div class="md:w-1/2 sr-left">
-                <div class="about-img-wrap">
-                    <img src="https://andrew78kim-dot.github.io/seorin/Images/Logo.png" alt="(주)서린 로고 및 철학">
-                    <div class="about-badge hidden md:block">
-                        <p>20+</p>
-                        <p>YEARS EXP.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 오른쪽 텍스트 -->
-            <div class="md:w-1/2 sr-right">
-                <span class="section-label">Since 2016</span>
-                <div class="gold-underline"></div>
-                <h2 class="section-title mb-6">시간이 흐를수록<br>깊어지는 조경의 미학</h2>
-                <p class="text-[#5a6a4e] leading-relaxed mb-8 text-[0.95rem]">
-                    서린(瑞隣)은 <strong class="text-[#2d4f1e]">'상서로움이 이웃하다'</strong>라는 뜻을 담고 있습니다.
+    <button aria-label="슬라이드 3" class="slider-dot" onclick="heroSlider.goTo(2)">
+    </button>
+   </div>
+   <div class="scroll-indicator text-white/60 flex flex-col items-center gap-2">
+    <span class="text-xs tracking-widest uppercase">
+     Scroll
+    </span>
+    <i class="fas fa-chevron-down text-sm">
+    </i>
+   </div>
+   <div class="slider-progress" id="sliderProgress">
+   </div>
+  </section>
+  <section class="section-padding bg-white" id="about">
+   <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center gap-16 lg:gap-20">
+     <div class="md:w-1/2 sr-left">
+      <div class="about-img-wrap">
+       <img alt="(주)서린 로고 및 철학" src="https://andrew78kim-dot.github.io/seorin/Images/Logo.png"/>
+       <div class="about-badge hidden md:block">
+        <p>
+         20+
+        </p>
+        <p>
+         YEARS EXP.
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="md:w-1/2 sr-right">
+      <span class="section-label">
+       Since 2016
+      </span>
+      <div class="gold-underline">
+      </div>
+      <h2 class="section-title mb-6">
+       시간이 흐를수록
+       <br/>
+       깊어지는 조경의 미학
+      </h2>
+      <p class="text-[#5a6a4e] leading-relaxed mb-8 text-[0.95rem]">
+       서린(瑞隣)은
+       <strong class="text-[#2d4f1e]">
+        '상서로움이 이웃하다'
+       </strong>
+       라는 뜻을 담고 있습니다.
                     20여 년의 현장 경험과 장인 정신으로, 우리는 자연과 삶이 조화롭게 공존하는
                     공간을 만들어왔습니다. 수목 하나하나에 담긴 생명의 가치를 존중하며,
                     당신의 공간에 자연의 품격을 더합니다.
-                </p>
-                <div class="grid grid-cols-2 gap-5 mb-8">
-                    <div class="value-card sr-item sr-delay-1">
-                        <h4>🌿 장인 정신</h4>
-                        <p>전통 수목과 현대 공법의 완벽한 조화</p>
-                    </div>
-                    <div class="value-card sr-item sr-delay-2">
-                        <h4>♻️ 지속 가능성</h4>
-                        <p>관리가 용이한 스마트 그린 조경</p>
-                    </div>
-                    <div class="value-card sr-item sr-delay-3">
-                        <h4>🏆 검증된 실력</h4>
-                        <p>강원권 우수 조경 건설사 수상</p>
-                    </div>
-                    <div class="value-card sr-item sr-delay-4">
-                        <h4>🔬 기술 혁신</h4>
-                        <p>기업부설 조경연구소 보유</p>
-                    </div>
-                </div>
-
-                <!-- stat strip -->
-                <div class="stat-strip sr-item sr-delay-2">
-                    <div class="stat-cell">
-                        <div class="num">20<span class="unit">+</span></div>
-                        <div class="lbl">경력 연수</div>
-                    </div>
-                    <div class="stat-cell">
-                        <div class="num">200<span class="unit">+</span></div>
-                        <div class="lbl">완료 프로젝트</div>
-                    </div>
-                    <div class="stat-cell">
-                        <div class="num">99<span class="unit">%</span></div>
-                        <div class="lbl">고객 만족도</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ─── SERVICES ──────────────────────────────────── -->
-<section id="services" class="section-padding services-bg">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-16 sr-section">
-            <span class="section-label">Our Services</span>
-            <div class="gold-underline"></div>
-            <h2 class="section-title">사업 분야</h2>
-            <p class="section-desc">(주)서린이 제공하는 전문 건설 및 조경 솔루션</p>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            <div class="service-card sr-item sr-delay-1">
-                <div class="icon-box"><i class="fas fa-pen-nib"></i></div>
-                <h3>마스터플랜 &amp; 설계</h3>
-                <p>부지의 특성을 정밀 분석하여 건축물과 최적의 조화를 이루는 독창적인 종합 조경 디자인을 제안합니다.</p>
-            </div>
-            <div class="service-card sr-item sr-delay-2">
-                <div class="icon-box"><i class="fas fa-tree"></i></div>
-                <h3>조경식재</h3>
-                <p>전국에서 선별한 명품 노송과 수목을 전문가의 안목으로 배치하여 독창적인 조경 공간을 조성합니다.</p>
-            </div>
-            <div class="service-card sr-item sr-delay-3">
-                <div class="icon-box"><i class="fas fa-tools"></i></div>
-                <h3>시설물공사</h3>
-                <p>정자와 파고라, 수경 시설 등 공간의 가치를 높이는 조경 시설물을 정교하고 안전하게 시공합니다.</p>
-            </div>
-            <div class="service-card sr-item sr-delay-4">
-                <div class="icon-box"><i class="fas fa-building"></i></div>
-                <h3>구조물해체</h3>
-                <p>새로운 공간 창출을 위한 기존 구조물의 철저하고 체계적인 해체 공사를 전문 장비로 수행합니다.</p>
-            </div>
-            <div class="service-card sr-item sr-delay-5">
-                <div class="icon-box"><i class="fas fa-hard-hat"></i></div>
-                <h3>비계공사</h3>
-                <p>건설 현장의 안전과 효율을 책임지는 견고한 비계 설치 및 가설 공사를 전문 기술자가 집도합니다.</p>
-            </div>
-            <div class="service-card sr-item sr-delay-6">
-                <div class="icon-box"><i class="fas fa-leaf"></i></div>
-                <h3>프리미엄 유지관리</h3>
-                <p>수목의 건강 상태를 정기적으로 진단하고 전문적인 유지관리를 통해 정원의 생명력을 보존합니다.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ─── HISTORY & PERFORMANCE ─────────────────────── -->
-<section id="history" class="section-padding history-section-bg">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-16 sr-section">
-            <span class="section-label">Our Journey</span>
-            <div class="gold-underline"></div>
-            <h2 class="section-title">연혁 및 실적</h2>
-            <p class="section-desc">(주)서린이 걸어온 신뢰의 발자취입니다.</p>
-        </div>
-
-        <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
-
-            <!-- 연혁 타임라인 -->
-            <div class="lg:w-1/3 sr-left">
-                <h3 class="text-xl font-bold text-[#2d4f1e] mb-8 flex items-center gap-3">
-                    <span class="w-10 h-10 bg-[#c5a059]/15 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-history text-[#c5a059]"></i>
-                    </span>
-                    회사 연혁
-                </h3>
-                <div class="history-timeline">
-                    <div class="history-item sr-item sr-delay-1">
-                        <div class="year">2024</div>
-                        <p>스마트 조경 관리 시스템 도입 및 특허 출원</p>
-                    </div>
-                    <div class="history-item sr-item sr-delay-2">
-                        <div class="year">2023</div>
-                        <p>강원권 우수 조경 건설사 표창 수상</p>
-                    </div>
-                    <div class="history-item sr-item sr-delay-3">
-                        <div class="year">2022</div>
-                        <p>기업부설 조경연구소 설립 및 기술인증</p>
-                    </div>
-                    <div class="history-item sr-item sr-delay-4">
-                        <div class="year">2021</div>
-                        <p>비계 및 구조물 해체 전문 면허 확장</p>
-                    </div>
-                    <div class="history-item sr-item sr-delay-5">
-                        <div class="year">2020</div>
-                        <p>조경시설물 및 식재 전문건설업 법인 전환</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 실적 테이블 -->
-            <div class="lg:w-2/3 sr-right">
-                <h3 class="text-xl font-bold text-[#2d4f1e] mb-8 flex items-center gap-3">
-                    <span class="w-10 h-10 bg-[#c5a059]/15 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-award text-[#c5a059]"></i>
-                    </span>
-                    최근 주요 공사 실적
-                </h3>
-                <div class="perf-table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>연도</th>
-                                <th>프로젝트명</th>
-                                <th>구분</th>
-                                <th style="text-align:center;">갤러리</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr onclick="jumpToGallery('proj-2023-1')">
-                                <td>2023</td>
-                                <td>반계리 은행나무 주변 정비 공사</td>
-                                <td><span class="tag-badge">조경식재</span></td>
-                                <td style="text-align:center;"><i class="fas fa-arrow-right arrow-icon"></i></td>
-                            </tr>
-                            <tr onclick="jumpToGallery('proj-2023-2')">
-                                <td>2023</td>
-                                <td>강릉 휴게소 수목 및 시설물 공사</td>
-                                <td><span class="tag-badge">시설물/식재</span></td>
-                                <td style="text-align:center;"><i class="fas fa-arrow-right arrow-icon"></i></td>
-                            </tr>
-                            <tr onclick="jumpToGallery('proj-2022-1')">
-                                <td>2022</td>
-                                <td>한라대학교 분수대 시공</td>
-                                <td><span class="tag-badge">수경시설</span></td>
-                                <td style="text-align:center;"><i class="fas fa-arrow-right arrow-icon"></i></td>
-                            </tr>
-                            <tr onclick="jumpToGallery('proj-2022-2')">
-                                <td>2022</td>
-                                <td>아파트 단지 수로관 및 노송 전정</td>
-                                <td><span class="tag-badge">유지관리</span></td>
-                                <td style="text-align:center;"><i class="fas fa-arrow-right arrow-icon"></i></td>
-                            </tr>
-                            <tr onclick="jumpToGallery('proj-2021-1')">
-                                <td>2021</td>
-                                <td>원주 공원 조경 및 데크 시공</td>
-                                <td><span class="tag-badge">조경시설물</span></td>
-                                <td style="text-align:center;"><i class="fas fa-arrow-right arrow-icon"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="mt-4 text-xs text-[#9aaa8e]">
-                    <i class="fas fa-info-circle mr-1"></i>
-                    각 행을 클릭하면 해당 프로젝트 갤러리로 이동합니다.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ─── PORTFOLIO GALLERY ─────────────────────────── -->
-<section id="portfolio" class="section-padding bg-white">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-12 sr-section">
-            <span class="section-label">Portfolio</span>
-            <div class="gold-underline"></div>
-            <h2 class="section-title">시공 갤러리</h2>
-            <p class="section-desc">서린의 손길로 완성된 공간들을 만나보세요.</p>
-
-            <!-- 필터 버튼 -->
-            <div class="flex flex-wrap justify-center gap-3 mt-8">
-                <button id="btn-all" onclick="filterGallery('all', this)" class="filter-btn active">전체보기</button>
-                <button onclick="filterGallery('식재', this)"   class="filter-btn">조경식재</button>
-                <button onclick="filterGallery('시설물', this)" class="filter-btn">조경시설물</button>
-                <button onclick="filterGallery('유지관리', this)" class="filter-btn">유지관리</button>
-            </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" id="galleryContainer">
-            <div class="portfolio-item sr-item sr-delay-1" id="proj-2023-1" data-category="식재">
-                <img src="https://andrew78kim-dot.github.io/seorin/Images/exam1.jpg" alt="반계리 은행나무">
-                <div class="portfolio-overlay">
-                    <div class="cat">2023 | 조경식재</div>
-                    <h4>반계리 은행나무 주변 정비</h4>
-                    <p>천연기념물 보호를 위한 지반 정비 및 수목 식재 공사</p>
-                </div>
-            </div>
-            <div class="portfolio-item sr-item sr-delay-2" id="proj-2023-2" data-category="시설물">
-                <img src="https://andrew78kim-dot.github.io/seorin/Images/exam2.jpg" alt="강릉 휴게소">
-                <div class="portfolio-overlay">
-                    <div class="cat">2023 | 시설물/식재</div>
-                    <h4>강릉 휴게소 조경 공사</h4>
-                    <p>고속도로 휴게소 내 수목 식재 및 벤치 시설물 설치</p>
-                </div>
-            </div>
-            <div class="portfolio-item sr-item sr-delay-3" id="proj-2022-1" data-category="시설물">
-                <img src="https://andrew78kim-dot.github.io/seorin/Images/exam9.jpg" alt="한라대학교 분수">
-                <div class="portfolio-overlay">
-                    <div class="cat">2022 | 수경시설</div>
-                    <h4>한라대학교 분수대 시공</h4>
-                    <p>캠퍼스 미관 개선을 위한 수경 공간 및 분수 시스템 구축</p>
-                </div>
-            </div>
-            <div class="portfolio-item sr-item sr-delay-4" id="proj-2022-2" data-category="유지관리">
-                <img src="https://andrew78kim-dot.github.io/seorin/Images/exam10.jpg" alt="노송 전정">
-                <div class="portfolio-overlay">
-                    <div class="cat">2022 | 유지관리</div>
-                    <h4>단지 수로관 및 노송 전정</h4>
-                    <p>대단지 아파트 수목 건강 관리 및 배수 시스템 정비</p>
-                </div>
-            </div>
-            <div class="portfolio-item sr-item sr-delay-5" id="proj-2021-1" data-category="시설물">
-                <img src="https://andrew78kim-dot.github.io/seorin/Images/exam6.png" alt="원주 공원 데크">
-                <div class="portfolio-overlay">
-                    <div class="cat">2021 | 조경시설물</div>
-                    <h4>원주 공원 조경 및 데크 시공</h4>
-                    <p>시민 휴식 공간 확충을 위한 산책로 데크 및 광장 조성</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ─── PARTNERS ──────────────────────────────────── -->
-<section id="partners" class="section-padding" style="background: linear-gradient(160deg,#f0f5ee 0%,#e8f0e4 100%);">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-16 sr-section">
-            <span class="section-label">Partners</span>
-            <div class="gold-underline"></div>
-            <h2 class="section-title">사업 파트너</h2>
-            <p class="section-desc">(주)서린과 함께 미래를 열어가는 협력사입니다.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="partner-card sr-item sr-delay-1">
-                <div class="partner-icon-wrap"><i class="fas fa-seedling"></i></div>
-                <span>(주)에코엔</span>
-            </div>
-            <div class="partner-card sr-item sr-delay-2">
-                <div class="partner-icon-wrap"><i class="fas fa-handshake"></i></div>
-                <span>(주)효진조경개발</span>
-            </div>
-            <div class="partner-card sr-item sr-delay-3">
-                <div class="partner-icon-wrap"><i class="fas fa-city"></i></div>
-                <span>미래건설산업</span>
-            </div>
-            <div class="partner-card sr-item sr-delay-4">
-                <div class="partner-icon-wrap"><i class="fas fa-mountain"></i></div>
-                <span>한국조경연구소</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ─── CONTACT ───────────────────────────────────── -->
-<section id="contact" class="contact-section py-28">
-    <div class="container mx-auto px-6 relative z-10">
-        <div class="flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
-
-            <!-- 왼쪽 정보 -->
-            <div class="lg:w-2/5 text-white sr-left">
-                <span class="section-label" style="color:var(--accent-gold);">Contact Us</span>
-                <div class="gold-underline"></div>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold serif leading-tight mb-6">
-                    새로운 공간을 위한<br>
-                    <span style="color:var(--accent-gold);">첫 걸음</span>
-                </h2>
-                <p class="text-white/65 mb-10 text-[0.95rem] leading-relaxed">
-                    상담 메시지를 남겨주시면 빠른 시일 내에 연락드립니다.<br>
-                    어떤 사소한 문의도 환영합니다.
-                </p>
-                <div class="space-y-6">
-                    <div class="contact-info-item sr-item sr-delay-1">
-                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                        <div>
-                            <p class="text-xs text-white/45 mb-1 uppercase tracking-widest">대표 번호</p>
-                            <p class="text-lg font-bold">033-765-5242</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item sr-item sr-delay-2">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div>
-                            <p class="text-xs text-white/45 mb-1 uppercase tracking-widest">이메일 문의</p>
-                            <!-- <p class="text-lg font-bold"><a href="/cdn-cgi/l/email-pprotection" class="__cf_email__" data-cfemail="0968676d7b6c7e3e3127626064496e64686065276a6664">[email&#160;protected]</a></p> -->
-                            <p class="ttext-lg font-bold">andrew78.kim@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item sr-item sr-delay-3">
-                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div>
-                            <p class="text-xs text-white/45 mb-1 uppercase tracking-widest">본사 주소</p>
-                            <p class="text-[0.92rem] leading-relaxed text-white/85">강원특별자치도 원주시 흥업면<br>남원로 67-9</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 오른쪽 폼 -->
-            <div class="lg:w-3/5 w-full sr-right" style="transition-delay:0.25s">
-                <form class="contact-form" onsubmit="return false;">
-                    <h3 class="text-xl font-bold text-[#2d4f1e] mb-8 serif">상담 신청서</h3>
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div class="form-group">
-                            <label class="form-label">성함 / 기업명</label>
-                            <input type="text" id="senderName" class="form-input" placeholder="홍길동">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">연락처</label>
-                            <input type="tel" id="senderPhone" class="form-input" placeholder="010-0000-0000">
-                        </div>
-                    </div>
-                    <div class="form-group mb-8">
-                        <label class="form-label">문의 사항</label>
-                        <textarea id="senderMessage" rows="5" class="form-input" style="resize:vertical;" placeholder="상담 받고 싶으신 내용을 기재해 주세요. (조경식재, 철거, 공사 문의 등)"></textarea>
-                    </div>
-                    <button type="button" onclick="sendMail()" class="btn-submit">
-                        상담 신청서 전송하기 &nbsp;<i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ─── FOOTER ────────────────────────────────────── -->
-<footer class="py-12">
-    <div class="container mx-auto px-6 text-center">
-        <div class="footer-logo">Seorin Co., Ltd.</div>
-        <div class="footer-divider mx-auto"></div>
+      </p>
+      <div class="grid grid-cols-2 gap-5 mb-8">
+       <div class="value-card sr-item sr-delay-1">
+        <h4>
+         🌿 장인 정신
+        </h4>
         <p>
-            대표자: 김효영 &nbsp;|&nbsp; 사업자등록번호: 757-87-00257 &nbsp;|&nbsp; 전화: 033-765-5242<br>
-            주소: 강원특별자치도 원주시 흥업면 남원로 67-9<br>
-            전문건설업: 조경식재·시설물공사, 비계·구조물해체공사
+         전통 수목과 현대 공법의 완벽한 조화
         </p>
-        <p class="mt-6 text-xs" style="color:rgba(255,255,255,0.25);">
-            Copyright © 2024 SEORIN CO., LTD. All Rights Reserved.
+       </div>
+       <div class="value-card sr-item sr-delay-2">
+        <h4>
+         ♻️ 지속 가능성
+        </h4>
+        <p>
+         관리가 용이한 스마트 그린 조경
         </p>
+       </div>
+       <div class="value-card sr-item sr-delay-3">
+        <h4>
+         🏆 검증된 실력
+        </h4>
+        <p>
+         강원권 우수 조경 건설사 수상
+        </p>
+       </div>
+       <div class="value-card sr-item sr-delay-4">
+        <h4>
+         🔬 기술 혁신
+        </h4>
+        <p>
+         기업부설 조경연구소 보유
+        </p>
+       </div>
+      </div>
+      <div class="stat-strip sr-item sr-delay-2">
+       <div class="stat-cell">
+        <div class="num">
+         20
+         <span class="unit">
+          +
+         </span>
+        </div>
+        <div class="lbl">
+         경력 연수
+        </div>
+       </div>
+       <div class="stat-cell">
+        <div class="num">
+         200
+         <span class="unit">
+          +
+         </span>
+        </div>
+        <div class="lbl">
+         완료 프로젝트
+        </div>
+       </div>
+       <div class="stat-cell">
+        <div class="num">
+         99
+         <span class="unit">
+          %
+         </span>
+        </div>
+        <div class="lbl">
+         고객 만족도
+        </div>
+       </div>
+      </div>
+     </div>
     </div>
-</footer>
-
-
-<!-- ─── SCRIPTS ───────────────────────────────────── -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* =============================================
-   0. HERO SLIDER
-============================================= */
-const heroSlider = (function() {
-    const INTERVAL = 6000;
-    let current   = 0;
-    let autoTimer = null;
-
-    const slides  = document.querySelectorAll('.hero-slide');
-    const dots    = document.querySelectorAll('.slider-dot');
-    const section = document.getElementById('home');
-
-    function goTo(idx) {
-        slides[current].classList.remove('active');
-        dots[current].classList.remove('active');
-        current = (idx + slides.length) % slides.length;
-        slides[current].classList.add('active');
-        dots[current].classList.add('active');
-        resetProgress();
-    }
-
-    function next() { goTo(current + 1); }
-    function prev() { goTo(current - 1); }
-
-    function resetProgress() {
-        const bar = document.getElementById('sliderProgress');
-        if (!bar) return;
-        bar.style.transition = 'none';
-        bar.style.width = '0%';
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-            bar.style.transition = `width ${INTERVAL}ms linear`;
-            bar.style.width = '100%';
-        }));
-    }
-
-    function startAuto() { autoTimer = setInterval(next, INTERVAL); }
-    function stopAuto()  { clearInterval(autoTimer); }
-
-    /* 터치 스와이프 지원 */
-    let tsX = 0;
-    section.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
-    section.addEventListener('touchend',   e => {
-        const diff = tsX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
-    });
-
-    /* 마우스 오버 시 일시 정지 */
-    section.addEventListener('mouseenter', stopAuto);
-    section.addEventListener('mouseleave', startAuto);
-
-    resetProgress();
-    startAuto();
-
-    return { goTo, next, prev };
-})();
-
-
-/* =============================================
-   1. SCROLL REVEAL — Intersection Observer
-   섹션/요소가 뷰포트에 들어오면 슬라이드업 실행
-============================================= */
-(function initScrollReveal() {
-    const observerOptions = {
-        threshold: 0.12,
-        rootMargin: '0px 0px -60px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // 한 번 나타난 뒤에는 관찰 중단 (성능 최적화)
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // 모든 sr-* 요소에 옵저버 연결
-    document.querySelectorAll('.sr-section, .sr-item, .sr-left, .sr-right').forEach(el => {
-        observer.observe(el);
-    });
-})();
-
-
-/* =============================================
-   2. 내비게이션 스크롤 축소 효과
-============================================= */
-window.addEventListener('scroll', () => {
-    const nav = document.getElementById('mainNav');
-    if (window.scrollY > 60) {
-        nav.classList.add('scrolled');
-    } else {
-        nav.classList.remove('scrolled');
-    }
-}, { passive: true });
-
-
-/* =============================================
-   3. 부드러운 앵커 스크롤
-============================================= */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const navH = document.getElementById('mainNav').offsetHeight;
-            const top  = target.getBoundingClientRect().top + window.pageYOffset - navH;
-            window.scrollTo({ top, behavior: 'smooth' });
-        }
-    });
-});
-
-
-/* =============================================
-   4. 갤러리 필터
-============================================= */
-function filterGallery(category, button) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    button.classList.add('active');
-
-    document.querySelectorAll('.portfolio-item').forEach(item => {
-        const match = category === 'all' || item.dataset.category.includes(category);
-        if (match) {
-            item.style.display = '';
-            requestAnimationFrame(() => {
-                item.style.opacity = '1';
-                item.style.transform = '';
-            });
-        } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.95)';
-            setTimeout(() => { item.style.display = 'none'; }, 380);
-        }
-    });
-}
-
-
-/* =============================================
-   5. 실적 → 갤러리 점프
-============================================= */
-function jumpToGallery(projectId) {
-    // 전체보기 리셋
-    filterGallery('all', document.getElementById('btn-all'));
-
-    const target = document.getElementById(projectId);
-    if (!target) return;
-
-    setTimeout(() => {
-        const navH = document.getElementById('mainNav').offsetHeight;
-        const top  = target.getBoundingClientRect().top + window.pageYOffset - navH - 24;
-        window.scrollTo({ top, behavior: 'smooth' });
-
-        target.classList.add('highlight-ring');
-        setTimeout(() => target.classList.remove('highlight-ring'), 2500);
-    }, 50);
-}
-
-
-/* =============================================
-   6. 모바일 메뉴
-============================================= */
-function closeMobileMenu() {
-    document.getElementById('mobileMenu').classList.remove('open');
-}
-
-
-/* =============================================
-   7. 메일 전송 (mailto 방식)
-============================================= */
-function sendMail() {
-    const name    = document.getElementById('senderName').value.trim();
-    const phone   = document.getElementById('senderPhone').value.trim();
-    const message = document.getElementById('senderMessage').value.trim();
-
-    if (!name || !phone || !message) {
-        alert('모든 항목을 입력해 주세요.');
-        return;
-    }
-
-    const subject = encodeURIComponent(`[서린 상담 신청] ${name} 고객님`);
-    const body    = encodeURIComponent(
-        `성함/기업명: ${name}\n연락처: ${phone}\n\n문의 내용:\n${message}`
-    );
-    window.location.href = `mailto:andrew78.kim@gmail.com?subject=${subject}&body=${body}`;
-}
-</script>
-</body>
+   </div>
+  </section>
+  <section class="section-padding services-bg" id="services">
+   <div class="container mx-auto px-6">
+    <div class="text-center mb-16 sr-section">
+     <span class="section-label">
+      Our Services
+     </span>
+     <div class="gold-underline">
+     </div>
+     <h2 class="section-title">
+      사업분야 미리보기
+     </h2>
+     <p class="section-desc">
+      사업분야를 별도 페이지로 분리하고, 핵심 카테고리 중심으로 더 직관적으로 확인할 수 있도록 구성했습니다.
+     </p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+     <div class="service-card sr-item sr-delay-1">
+      <div class="icon-box">
+       <i class="fas fa-seedling">
+       </i>
+      </div>
+      <h3>
+       조경식재
+      </h3>
+      <p>
+       교목, 관목, 초화류, 잔디, 수생식물까지 공간 성격과 계절감을 고려한 식재 계획을 제안합니다.
+      </p>
+     </div>
+     <div class="service-card sr-item sr-delay-2">
+      <div class="icon-box">
+       <i class="fas fa-draw-polygon">
+       </i>
+      </div>
+      <h3>
+       조경시설
+      </h3>
+      <p>
+       휴게시설, 포장, 데크, 수경시설, 옥상조경 등 기능성과 경관을 동시에 높이는 시설 시공을 수행합니다.
+      </p>
+     </div>
+     <div class="service-card sr-item sr-delay-3">
+      <div class="icon-box">
+       <i class="fas fa-shield-halved">
+       </i>
+      </div>
+      <h3>
+       조경유지관리
+      </h3>
+      <p>
+       정기 점검, 식재 관리, 시설 보수, 위험수목 제거까지 공간의 품질을 지속적으로 유지합니다.
+      </p>
+     </div>
+    </div>
+    <div class="text-center mt-10 sr-item sr-delay-4">
+     <a class="inline-flex items-center gap-2 px-7 py-3 rounded-full text-white font-semibold shadow-lg hover:translate-y-[-2px] transition-all" href="business.html" style="background:linear-gradient(135deg,var(--primary-green),#486d35); box-shadow:0 10px 24px rgba(45,79,30,0.22);">
+      사업분야 상세 페이지 보기
+      <i class="fas fa-arrow-right text-sm">
+      </i>
+     </a>
+    </div>
+   </div>
+  </section>
+  <section class="contact-section py-28" id="contact">
+   <div class="container mx-auto px-6 relative z-10">
+    <div class="flex flex-col lg:flex-row gap-14 lg:gap-20 items-start">
+     <div class="lg:w-2/5 text-white sr-left">
+      <span class="section-label" style="color:var(--accent-gold);">
+       Contact Us
+      </span>
+      <div class="gold-underline">
+      </div>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold serif leading-tight mb-6">
+       새로운 공간을 위한
+       <br/>
+       <span style="color:var(--accent-gold);">
+        첫 걸음
+       </span>
+      </h2>
+      <p class="text-white/65 mb-10 text-[0.95rem] leading-relaxed">
+       상담 메시지를 남겨주시면 빠른 시일 내에 연락드립니다.
+       <br/>
+       어떤 사소한 문의도 환영합니다.
+      </p>
+      <div class="space-y-6">
+       <div class="contact-info-item sr-item sr-delay-1">
+        <div class="contact-icon">
+         <i class="fas fa-phone">
+         </i>
+        </div>
+        <div>
+         <p class="text-xs text-white/45 mb-1 uppercase tracking-widest">
+          대표 번호
+         </p>
+         <p class="text-lg font-bold">
+          033-765-5242
+         </p>
+        </div>
+       </div>
+       <div class="contact-info-item sr-item sr-delay-2">
+        <div class="contact-icon">
+         <i class="fas fa-envelope">
+         </i>
+        </div>
+        <div>
+         <p class="text-xs text-white/45 mb-1 uppercase tracking-widest">
+          이메일 문의
+         </p>
+         <p class="ttext-lg font-bold">
+          andrew78.kim@gmail.com
+         </p>
+        </div>
+       </div>
+       <div class="contact-info-item sr-item sr-delay-3">
+        <div class="contact-icon">
+         <i class="fas fa-map-marker-alt">
+         </i>
+        </div>
+        <div>
+         <p class="text-xs text-white/45 mb-1 uppercase tracking-widest">
+          본사 주소
+         </p>
+         <p class="text-[0.92rem] leading-relaxed text-white/85">
+          강원특별자치도 원주시 흥업면
+          <br/>
+          남원로 67-9
+         </p>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="lg:w-3/5 w-full sr-right" style="transition-delay:0.25s">
+      <form class="contact-form" onsubmit="return false;">
+       <h3 class="text-xl font-bold text-[#2d4f1e] mb-8 serif">
+        상담 신청서
+       </h3>
+       <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="form-group">
+         <label class="form-label">
+          성함 / 기업명
+         </label>
+         <input class="form-input" id="senderName" placeholder="홍길동" type="text"/>
+        </div>
+        <div class="form-group">
+         <label class="form-label">
+          연락처
+         </label>
+         <input class="form-input" id="senderPhone" placeholder="010-0000-0000" type="tel"/>
+        </div>
+       </div>
+       <div class="form-group mb-8">
+        <label class="form-label">
+         문의 사항
+        </label>
+        <textarea class="form-input" id="senderMessage" placeholder="상담 받고 싶으신 내용을 기재해 주세요. (조경식재, 철거, 공사 문의 등)" rows="5" style="resize:vertical;"></textarea>
+       </div>
+       <button class="btn-submit" onclick="sendMail()" type="button">
+        상담 신청서 전송하기
+        <i class="fas fa-paper-plane">
+        </i>
+       </button>
+      </form>
+     </div>
+    </div>
+   </div>
+  </section>
+  <div data-include="site-footer">
+  </div>
+  <script src="assets/js/common.js">
+  </script>
+ </body>
 </html>
+
